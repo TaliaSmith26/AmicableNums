@@ -1,0 +1,118 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+	<meta name='viewport' content= "width=device-width, initial-scale=1"> 
+
+	<title>Amicable Numbers</title>
+	<!-- <link rel="stylesheet" type="text/css" href="styleamicable.css"> -->
+
+	<style type="text/css">
+		h1 { 
+			padding: 60px;
+			font-size: 60px;
+			font-weight:bold ;
+			font-family: Courier New;
+			background-color: darkslategray;
+			margin: -10px;
+			color: white;
+		}
+
+		body {
+			text-align: center;
+			background-color: darkseagreen;
+			font-weight: bold;
+			font-size: 18px;
+		}
+	</style>
+
+</head>
+
+<body>
+	
+	<h1>Amicable Numbers</h1>
+
+	<br><br><br><br><br>
+	<p>Please input two numbers below and click submit to check if they are amicable: </p>
+	<br><br>
+
+	<div id = "form">
+		<form>
+			<label for="firstnumber">First number:</label><br>
+			<input type="text" id="firstnumber"><br><br>
+			<label for="secondnumber">Second number:</label><br>
+			<input type="text" id="secondnumber"><br><br>
+			<input type="button" value="Submit" onclick="onClick()">
+		</form>
+	</div>
+
+	<!-- display result in a div "amicable" below the button -->
+	<div id="amicable"></div>
+
+	<!-- display all the factors for each number --> 
+	<div id="factors"></div>
+
+	<script language="javascript">
+
+		// function returning final results 
+		function onClick(){
+	       firstnumber = parseInt(document.getElementById("firstnumber").value);
+	       secondnumber = parseInt(document.getElementById("secondnumber").value);
+	       displayResults(firstnumber, secondnumber);
+		}
+
+		//function to check amicability 
+		function checkAmicable(number, factor){
+			amicable = 0;
+			sum = 0;
+			for(i = 0; i < factor.length; i++) {
+			sum += factor[i]; 
+			}
+			if (number == sum) amicable = 1;
+			  return amicable;
+		}	
+
+		//storing the factors in an array 
+		function factorsArray(number) {
+			fArray = [];
+			for (i = 1; i < number; i++) {
+				if ((number % i) == 0) fArray.push(i); 
+			}
+			return fArray; 
+		}
+
+		//displaying the factors from the array above
+		function displayFactors(number, factor) {
+			var factorsDisplay = number + " factors: "; 
+			for (i = 0; i < factor.length; i++) {
+				factorsDisplay += factor[i] + " "; 
+			}
+  			return factorsDisplay;
+		}
+
+		//display the final results onto the screen 
+		function displayResults(firstnumber, secondnumber) {
+			amicable = 0;
+			factor1 = factorsArray(firstnumber); 
+			factor2 = factorsArray(secondnumber);
+			var text, factorsDisplay1, factorsDisplay2;
+			if (checkAmicable(firstnumber, factor2) && checkAmicable(secondnumber, factor1)) {
+				amicable = 1;
+			}
+			//displaying if amicable from div
+			result = "<br><br>The numbers " + firstnumber + " and " + secondnumber + " are " +
+        	(amicable==1 ? "":"not ") + "amicable." + "<br>";
+			document.getElementById("amicable").innerHTML = result; 
+
+			//displaying factor list from div
+			factorsDisplay1 = displayFactors(firstnumber,factor1);
+			factorsDisplay2 = "\n" + displayFactors(secondnumber,factor2); 
+			document.getElementById("factors").innerHTML = factorsDisplay1 + "<br>" + factorsDisplay2; 
+		}
+		
+	</script>
+
+</body>
+
+</html>
+
+
